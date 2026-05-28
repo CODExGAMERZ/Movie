@@ -70,10 +70,16 @@ You need a web browser (Chrome, Firefox, Edge, Safari) and a simple HTTP server 
 
 ---
 
-## 🔑 API Key
+## 🔑 API Key Configuration
 
-The API key used by this project is stored inside [key.js](file:///c:/Users/codex/GitHub/Movie/js/key.js). The default key is fully active. If you wish to use your own OMDb key, edit the file contents:
-```javascript
-const key = "YOUR_OMDB_API_KEY";
-```
-You can register for a free OMDb API key at [omdbapi.com](http://www.omdbapi.com/apikey.aspx).
+The OMDb API key is loaded from [key.js](file:///c:/Users/codex/GitHub/Movie/js/key.js). Because this file contains credentials, it is ignored by Git. 
+
+To set up the API key:
+1. Copy the example file `js/key.js.example` to `js/key.js`.
+2. Open `js/key.js` and replace the placeholder value with your active OMDb API key:
+   ```javascript
+   const key = "YOUR_OMDB_API_KEY";
+   ```
+3. You can register for a free or developer-tier API key at [omdbapi.com](http://www.omdbapi.com/apikey.aspx).
+
+If `js/key.js` is missing, the application will display a user-friendly setup wizard instructing you how to configure the key, rather than crashing.

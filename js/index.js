@@ -1,3 +1,11 @@
+// Safety check for API key configuration
+let api_key = "";
+let has_key = false;
+if (typeof key !== "undefined") {
+    api_key = key;
+    has_key = true;
+}
+
 const movieNameRef = document.getElementById("movie-name");
 const searchBtn = document.getElementById("search-btn");
 const result = document.getElementById("result");
@@ -5,6 +13,27 @@ const container = document.querySelector(".container");
 
 let currentSearchQuery = "";
 let currentPage = 1;
+
+// Show API key warning if missing
+const showKeyWarning = () => {
+    container.classList.remove("wide");
+    result.innerHTML = `
+        <div class="msg error-msg fade-in" style="padding: 2.5rem; text-align: center; border: 2px dashed rgba(255, 87, 34, 0.4); border-radius: 12px; margin-top: 1.5rem; background: rgba(255, 87, 34, 0.05);">
+            <h3 style="color: #ff5722; margin-bottom: 1rem; font-size: 1.4rem;">⚠️ OMDB API Key Not Found</h3>
+            <p style="margin-bottom: 1.5rem; color: #a0bbcc; font-size: 1rem; line-height: 1.5;">
+                This app requires a free OMDB API key to retrieve movie details.
+            </p>
+            <div style="display: inline-block; text-align: left; color: #e2e8f0; line-height: 1.8; font-size: 0.95rem; max-width: 400px; margin: 0 auto;">
+                1. Create a file at <code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: monospace;">js/key.js</code><br>
+                2. Inside the file, add:<br>
+                <code style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px; font-family: monospace; display: block; margin: 0.5rem 0; color: #00D4AA;">const key = "your_omdb_key_here";</code>
+                3. Obtain a free key from <a href="http://www.omdbapi.com/apikey.aspx" target="_blank" style="color: #00d4aa; text-decoration: underline; font-weight: 500;">omdbapi.com</a>
+            </div>
+        </div>
+    `;
+    if (searchBtn) searchBtn.disabled = true;
+    if (movieNameRef) movieNameRef.disabled = true;
+};
 
 const showSkeleton = () => {
     result.innerHTML = `
@@ -42,6 +71,10 @@ const showGridSkeleton = () => {
 };
 
 const getMovies = (query, page) => {
+    if (!has_key) {
+        showKeyWarning();
+        return;
+    }
     currentSearchQuery = query;
     currentPage = page;
 
@@ -49,7 +82,7 @@ const getMovies = (query, page) => {
     container.classList.add("wide");
     showGridSkeleton();
 
-    const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&page=${page}&apikey=${key}`;
+    const url = `https://www.omdbapi.com/?s=${encodeURIComponent(query)}&page=${page}&apikey=${api_key}`;
 
     fetch(url)
         .then((resp) => resp.json())
@@ -108,11 +141,15 @@ const changePage = (direction) => {
 };
 
 const fetchMovieDetails = (imdbID) => {
+    if (!has_key) {
+        showKeyWarning();
+        return;
+    }
     // Narrow container back to 42rem for focused detail reading
     container.classList.remove("wide");
     showSkeleton();
 
-    const url = `https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${key}`;
+    const url = `https://www.omdbapi.com/?i=${imdbID}&plot=full&apikey=${api_key}`;
 
     fetch(url)
         .then((resp) => resp.json())
@@ -194,6 +231,10 @@ window.changePage = changePage;
 window.backToSearchResults = backToSearchResults;
 
 const handleSearch = () => {
+    if (!has_key) {
+        showKeyWarning();
+        return;
+    }
     let query = movieNameRef.value.trim();
     if (query.length <= 0) {
         query = "Inception";
@@ -211,6 +252,10 @@ movieNameRef.addEventListener("keypress", (e) => {
 
 // Load the default movie showcase on load
 window.addEventListener("load", () => {
+    if (!has_key) {
+        showKeyWarning();
+        return;
+    }
     let query = movieNameRef.value.trim();
     if (query.length <= 0) {
         query = "Inception";
