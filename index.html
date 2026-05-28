@@ -5,24 +5,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>maybe Aryan's movie app</title>
+    <!-- Meta tags for SEO -->
+    <meta name="description" content="CineFinder - Search for your favorite movies, view IMDb ratings, genres, release details, plots, cast lists, and box office details instantly.">
+    <link rel="stylesheet" href="css/style.css">
+    <title>CineFinder - Discover Movies & Details</title>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="search-container">
-            <input type="text" id="movie-name" placeholder="Enter movie name here..." value="">
-            <button id="search-btn">Search</button>
-        </div>
-        <div id="result"></div>
-    </div>
+    <main class="container">
+        <header class="search-container">
+            <input type="text" id="movie-name" placeholder="Enter movie name here..." value="" aria-label="Movie Name Input">
+            <button id="search-btn" type="button">Search</button>
+        </header>
+        <section id="result" aria-live="polite">
+            <!-- Movie details or loading skeleton will be injected here -->
+        </section>
+    </main>
 
-
-
-    <script src="key.js"></script>
-    <script src="index.js"></script>
+    <script src="js/key.js"></script>
+    <script src="js/index.js"></script>
 
 </body>
 
