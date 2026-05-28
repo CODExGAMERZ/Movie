@@ -14,10 +14,14 @@
 <body>
 
     <main class="container">
-        <header class="search-container">
+        <header class="app-header">
+            <h1>CineFinder</h1>
+            <p>Discover ratings, plots, cast, and details from millions of titles</p>
+        </header>
+        <div class="search-container">
             <input type="text" id="movie-name" placeholder="Enter movie name here..." value="" aria-label="Movie Name Input">
             <button id="search-btn" type="button">Search</button>
-        </header>
+        </div>
         <section id="result" aria-live="polite">
             <!-- Movie details or loading skeleton will be injected here -->
         </section>
