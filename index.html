@@ -1,35 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Meta tags for SEO -->
-    <meta name="description" content="CineFinder - Search for your favorite movies, view IMDb ratings, genres, release details, plots, cast lists, and box office details instantly.">
+    <meta name="description" content="CineFinder - Search for your favorite movies, view IMDb ratings, plots, cast lists, box office data, and curate your personalized watchlist.">
+    <meta name="keywords" content="movies, search, rating, imdb, cast, director, awards, watchlist" />
+    <meta name="author" content="Aryan Sinha" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+    
     <link rel="stylesheet" href="css/style.css">
-    <title>CineFinder - Discover Movies & Details</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+    <title>CineFinder - Discover Movies & Curate Watchlist</title>
 </head>
-
 <body>
+
+    <!-- Header Actions Bar -->
+    <div class="top-nav">
+        <button id="theme-toggle" class="nav-action-btn" aria-label="Toggle light/dark theme" title="Toggle Theme">
+            <i class="ri-moon-line"></i>
+        </button>
+        <button id="watchlist-toggle" class="nav-action-btn" aria-label="Open watchlist" title="View Watchlist">
+            <i class="ri-bookmark-3-line"></i> <span class="watchlist-count" id="watchlist-count">0</span>
+        </button>
+    </div>
 
     <main class="container">
         <header class="app-header">
-            <h1>CineFinder</h1>
+            <div class="brand-title">
+                <i class="ri-film-line brand-icon"></i>
+                <h1>CineFinder</h1>
+            </div>
             <p>Discover ratings, plots, cast, and details from millions of titles</p>
         </header>
+
         <div class="search-container">
-            <input type="text" id="movie-name" placeholder="Enter movie name here..." value="" aria-label="Movie Name Input">
+            <i class="ri-search-2-line search-bar-icon"></i>
+            <input type="text" id="movie-name" placeholder="Search for movies, series, or games..." value="" aria-label="Movie Name Input">
             <button id="search-btn" type="button">Search</button>
         </div>
+
         <section id="result" aria-live="polite">
-            <!-- Movie details or loading skeleton will be injected here -->
+            <!-- Movie details, search grids, or loading skeleton will be injected here -->
         </section>
     </main>
 
+    <!-- Slide-out Watchlist Drawer -->
+    <aside id="watchlist-drawer" class="watchlist-drawer" aria-label="My Watchlist">
+        <div class="drawer-header">
+            <h3><i class="ri-bookmark-3-fill"></i> My Watchlist</h3>
+            <button id="close-drawer" aria-label="Close watchlist drawer">
+                <i class="ri-close-line"></i>
+            </button>
+        </div>
+        <div class="drawer-content" id="watchlist-items-list">
+            <!-- Watchlist items loaded from localStorage will go here -->
+        </div>
+    </aside>
+    <div id="drawer-overlay" class="drawer-overlay"></div>
+
     <script src="js/key.js"></script>
     <script src="js/index.js"></script>
-
 </body>
-
 </html>
